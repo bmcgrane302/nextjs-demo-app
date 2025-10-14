@@ -47,9 +47,6 @@ export default function LoginPage() {
           </Button>
         </Box>
       </Paper>
-      <pre>
-        {email} {password}
-      </pre>
     </Container>
   );
 }

@@ -12,14 +12,21 @@ export async function POST(req) {
 
   const token = signToken({ email });
 
-  const res = NextResponse.redirect(new URL("/todo", req.url), 303);
+  // redirect after successful login
+  const res = NextResponse.redirect(new URL("/", req.url), 303);
+
   res.cookies.set("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production" ? true : false,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
   });
 
-  console.info("✅ Token cookie set:", res.cookies.get("token"));
+  res.cookies.set("logged_in", "true", {
+    httpOnly: false,
+    sameSite: "lax",
+    path: "/",
+  });
+
   return res;
 }
